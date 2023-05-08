@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+<link rel="stylesheet" href="../../index.css">
+<link rel="stylesheet" href="../../cjs/jquery.mCustomScrollbar.css" />
+<link href="../../fonts/font-awesome/css/all.css" rel="stylesheet">
+<script src="../../cjs/easeljs-0.8.2.min.js"></script> 
+<script src="../../cjs/tweenjs-0.6.2.min.js"></script> 
+<script src="../../cjs/preloadjs-0.6.2.min.js"></script> 
+<script src="../../cjs/soundjs-0.6.2.min.js"></script> 
+<script src="page.js"></script> 
+<script src="../../principal.js"></script> 
+<script src="../../cjs/jquery.min.js"></script> 
+<script src="../../cjs/jquery.imagemapster.js"></script> 
+<script src="../../cjs/jquery.mCustomScrollbar.concat.min.js"></script> 
+<script src="../../cjs/jquery-ui.min.js"></script> 
+<script src="../../cjs/jquery.ui.touch-punch.min.js"></script> 
+<script>
+	
+	
+var canvas, stage, exportRoot;
+function init() {
+	canvas = document.getElementById("canvas");
+	var loader = new createjs.LoadQueue(false);
+	loader.installPlugin(createjs.Sound);
+	loader.addEventListener("fileload", handleFileLoad);
+	loader.addEventListener("complete", handleComplete);
+	loader.addEventListener("progress", handleProgress);
+	loader.loadManifest(lib.properties.manifest);
+  $.getJSON("../../images/animaciones_atlas_.json", function(json) {
+      frames_animacion = json.frames;
+    });
+}
+function handleFileLoad(evt) {
+	if (evt.item.type == "image") { images[evt.item.id] = evt.result; }
+}
+function playSound(id, loop) {
+	createjs.Sound.play(id, createjs.Sound.INTERRUPT_EARLY, 0, 0, loop);
+}
+ancho_linea = 0;
+alto_linea = 10;
+max_ancho = 450;
+function handleProgress(evt) {
+	stage = new createjs.Stage(canvas);
+	var bordePadding = 2;
+    var borde = new createjs.Shape;
+    borde.graphics.beginFill("rgba(131,120,111,0.4)").drawRect(0, 0, max_ancho + bordePadding*2, alto_linea).endFill();
+    var linea_carga = new createjs.Shape();
+	linea_carga.graphics.beginFill("#009DDF").drawRect(0 + bordePadding,0 + bordePadding, ancho_linea, alto_linea - bordePadding*2).endFill();
+    progreso = Math.round(evt.loaded * max_ancho);
+	ancho_linea = progreso;
+	contenedor = new createjs.Container();
+	contenedor.x = 1240/2 - max_ancho/2;
+	contenedor.y = 495*4/5 - alto_linea/2;
+	contenedor.addChild(borde, linea_carga);
+	//stage.addChild(contenedor);
+	stage.update();
+}
+function handleComplete(evt) {
+	var queue = evt.target;
+	stage = new createjs.Stage(canvas);
+	createjs.Ticker.addEventListener("tick", stage);
+	/////Variables
+	sin_personaje = true;
+	globo_personaje = "Empecemos identificando la importancia del programa de bloqueo y etiquetado, las actividades en las que se debe aplicar y algunos conceptos asociados.";
+	pausas_audio = [[0,16406],[977,19347]];
+
+  coord_flecha_next = [900,100];
+
+  contenidos();	
+}
+</script>
+</head>
+<body onload="init();">
+<canvas id="canvas" width="1260" height="550"></canvas>
+<div id="instruccion_circulos" class="instruccion_circulos"> </div>
+<div class="c_principal c_2_6">
+  <h1  data-posabsbtn="200,220">Conceptos clave</h1>
+  <div class="item_c">
+    <h1></h1>
+  </div>
+  <div class="item_c" style="margin: 0 30px;">
+    <div class="txt_interno c_1">
+      <h1>Inicio</h1>
+      <div class="item_c">
+        <div class='instruccion_interna'><span class='indica_instclic'></span>Pulsa los botones de la izquierda para conocer las definiciones establecidas en la Circular Externa 025 de 2020 de la Superintendencia Financiera de Colombia.</div>
+      </div>
+    </div>
+    <div class="txt_interno c_1_1">
+      <h1>Riesgo operacional</h1>
+      <div class="item_c"><img src="images/diap5.png" height="250"></div>
+      <div class="item_c">
+        
+        <div class="txt_c"><div class="cont_audio">
+          <div class="audio_c">
+            <audio controls style="margin-top: 15px;">
+              <source src="sounds/diap5a.mp3" type="audio/mpeg">
+              Your browser does not support the audio tag. </audio>
+          </div>
+          <div class="subs_audio">
+            <div>El riesgo operacional “es la posibilidad de que la entidad incurra en pérdidas por las deficiencias, fallas o inadecuado funcionamiento de los procesos, la tecnología, la infraestructura o el recurso humano, así como por la ocurrencia de acontecimientos externos asociados a estos.”</div>
+          </div>
+        </div>
+          <div class="instruccion_interna">Pasa el mouse sobre el dato de interés</div>
+          <div id="zona_sensible0" class="negrilla_sensible">
+            <p><i class="fad fa-comment-exclamation"></i></p>
+            <p>Dato de interés</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="txt_interno c_1_1">
+      <h1>Riesgo legal</h1>
+      <div class="item_c"><img src="images/diap6.png" height="250"></div>
+      <div class="item_c">
+        <div class="txt_c">
+          <div class="cont_audio">
+            <div class="audio_c">
+              <audio controls style="margin-top: 15px;">
+                <source src="sounds/diap6.mp3" type="audio/mpeg">
+                Your browser does not support the audio tag. </audio>
+            </div>
+            <div class="subs_audio">
+              <div>El riesgo legal “es la posibilidad de pérdida en que incurre una entidad al ser sancionada u obligada a indemnizar daños como resultado del incumplimiento de normas o regulaciones y obligaciones contractuales”. </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="txt_interno c_1_1">
+      <h1>Evento de pérdida</h1>
+      <div class="item_c"><img src="images/diap7.png" height="250"></div>
+      <div class="item_c">
+        <div class="txt_c">
+          <div class="cont_audio">
+            <div class="audio_c">
+              <audio controls style="margin-top: 15px;">
+                <source src="sounds/diap7.mp3" type="audio/mpeg">
+                Your browser does not support the audio tag. </audio>
+            </div>
+            <div class="subs_audio">
+              <div>Los eventos de pérdida “son aquellos incidentes que generan pérdidas por riesgo operacional a las entidades”. </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="txt_interno c_1">
+      <h1>Tipo de evento</h1>
+      <div class="item_c">
+        <div class="instruccion_interna">Pasa el mouse sobre los textos resaltados</div>
+        <div class="txt_c">
+          <div class="cont_audio">
+            <div class="audio_c">
+              <audio controls style="margin-top: 15px;">
+                <source src="sounds/diap8a.mp3" type="audio/mpeg">
+                Your browser does not support the audio tag. </audio>
+            </div>
+            <div class="subs_audio">
+              <div>En la Circular Externa 025 de 2020 de la Superintendencia Financiera de Colombia se contemplan dos tipos de eventos:</div>
+            </div>
+          </div>
+          <table style="text-align: center; margin: auto;">
+            <tr>
+              <td><img src="images/diap8a.png" height="180">
+                <div class="negrilla_sensible" id="zona_sensible1">Tipo A</div></td>
+              <td><img src="images/diap8b.png" height="180">
+                <div class="negrilla_sensible" id="zona_sensible2">Tipo B</div></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="c_principal c_1">
+  <h1  data-posabsbtn="400,220">¿Cuándo se materializa un Evento de Riesgo Operacional?</h1>
+  <div class="item_c">
+    <div class="instruccion_interna">Pasa el mouse sobre los íconos y textos resaltados.</div>
+    <div class="txt_c">
+      <div class="cont_audio">
+        <div class="audio_c">
+          <audio controls style="margin-top: 15px;">
+            <source src="sounds/diap10a.mp3" type="audio/mpeg">
+            Your browser does not support the audio tag. </audio>
+        </div>
+        <div class="subs_audio">
+          <div>Un Evento de Riesgo Operacional se materializa en los siguientes casos: </div>
+        </div>
+      </div>
+      <table style="text-align: center; margin: auto;">
+        <tr>
+          <td><div class="infografia"> <img src="images/diap10.png" height="200">
+              <p></p>
+              <map data-restriccion="no">
+                <area id="zona_sensible3" shape="circ" coords="448,164,69">
+                <area id="zona_sensible4" shape="circ" coords="631,164,69">
+                <area id="zona_sensible5" shape="circ" coords="815,164,69">
+              </map>
+            </div></td>
+          <td><div id="zona_sensible6" class="negrilla_sensible">
+              <p><i class="fad fa-comment-exclamation"></i></p>
+              <p>Dato de interés</p>
+            </div></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="c_masinfo c_1">
+  <h1>Casos que NO corresponden a Eventos de Riesgo Operacional </h1>
+  <div class="item_c">
+    <div class="txt_c">
+      <div class="cont_audio">
+        <div class="audio_c">
+          <audio controls style="margin-top: 15px;">
+            <source src="sounds/diap11.mp3" type="audio/mpeg">
+            Your browser does not support the audio tag. </audio>
+        </div>
+        <div class="subs_audio">
+          <div>Los siguientes casos no deben considerarse como Eventos de Riesgo Operacional:</div>
+        </div>
+      </div>
+      <table style="text-align: center; margin: auto;">
+        <tr>
+          <td><img src="images/diap11a.png" height="120">
+            <div>Comparendos asociados a los vehículos del Banco.</div></td>
+          <td><img src="images/diap11b.png" height="120">
+            <div>Reconocimiento comercial de parte del Banco a clientes.</div></td>
+          <td><img src="images/diap11c.png" height="120">
+            <div>Daños a activos físicos relacionados con el funcionamiento o desgaste natural.</div></td>
+          <td><img src="images/diap11d.png" height="120">
+            <div>Solicitudes y peticiones del cliente relacionadas con atención de requerimientos de sus productos y servicios.</div></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="mas_personaje c_1">
+  <h1></h1>
+  <div class="item_c"></div>
+</div>
+<div class="c_principal c_1">
+  <style>
+		#titulo_c2 {
+			font-size: 20px!important;
+}
+</style>
+  <h1  data-posabsbtn="500,220">Preguntas frecuentes respecto a la gestión de Eventos de Riesgo Operacional</h1>
+  <div class="item_c">
+    <div class="instruccion_interna" style="width: 770px; margin: auto;">Pasa el mouse sobre los íconos para conocer las preguntas que suelen hacer nuestros funcionarios con respecto a la gestión de Eventos de Riesgo Operacional.</div>
+    <div class="txt_c">
+      <table style="text-align: center; margin: auto;
+					  width: 900px;">
+        <div class="infografia"> <img src="images/diap13.png" height="250">
+          <p></p>
+          <map data-restriccion="no">
+            <area id="zona_sensible7" shape="circ" coords="429,112,68">
+            <area id="zona_sensible8" shape="circ" coords="601,112,68">
+            <area id="zona_sensible9" shape="circ" coords="778,112,68">
+            <area id="zona_sensible10" shape="circ" coords="518,272,68">
+            <area id="zona_sensible11" shape="circ" coords="682,272,68">
+          </map>
+        </div>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="c_principal c_2_6">
+  <h1 data-posabsbtn="600,220"> Procesos vinculados a la gestión de Eventos de Riesgo Operacional</h1>
+  <div class="item_c">
+    <h1></h1>
+  </div>
+  <div class="item_c" style="margin: 0 30px;">
+    <div class="txt_interno c_1">
+      <h1>Inicio</h1>
+      <div class="item_c">
+        <div class='instruccion_interna'><span class='indica_instclic'></span>Pulsa los botones de la izquierda para conocer los responsables y los requisitos de estos procedimientos.</div>
+      </div>
+    </div>
+    <div class="txt_interno c_1_1">
+      <h1>Registro de eventos</h1>
+      <div class="item_c"><img src="images/diap16.png" height="250"></div>
+      <div class="item_c">
+        <div class="txt_c">
+          <div class="cont_audio">
+            <div class="audio_c">
+              <audio controls style="margin-top: 15px;">
+                <source src="sounds/diap16.mp3" type="audio/mpeg">
+                Your browser does not support the audio tag. </audio>
+            </div>
+            <div class="subs_audio">
+              <div>Cuando se registra un evento de riesgo, el <span class="negrilla">dueño del proceso afectado</span> debe <span class="negrilla">verificar en el aplicativo</span> de gestión de riesgos operacionales los eventos en <span class="negrilla">estado "Reportado"</span>, validando y garantizando la veracidad y calidad de la información del registro, y, en caso de ser necesario, <span class="negrilla">realizar modificaciones</span> en el aplicativo.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="txt_interno c_1_1">
+      <h1>Planes de acción</h1>
+      <div class="item_c"><img src="images/diap17.png" height="250"></div>
+      <div class="item_c">
+        <div class="txt_c">
+          <div class="cont_audio">
+            <div class="audio_c">
+              <audio controls style="margin-top: 15px;">
+                <source src="sounds/diap17.mp3" type="audio/mpeg">
+                Your browser does not support the audio tag. </audio>
+            </div>
+            <div class="subs_audio">
+              <div> Le corresponde al <span class="negrilla">dueño del proceso afectado</span>, en el cual se materializó y registró el evento de riesgo, <span class="negrilla">coordinar la definición del plan de acción</span> requerido para disminuir la ocurrencia y/o impacto del evento sucedido, <span class="negrilla">aún cuando las acciones no dependan directamente de él</span>, sino de otras áreas que originaron o causaron la ocurrencia del evento, o no esté en sus manos implementar las acciones de mejora requeridas.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="txt_interno c_1">
+      <h1>Afectación contable</h1>
+      <div class="item_c">
+        <div class="txt_c">
+          <div class="cont_audio">
+            <div class="audio_c">
+              <audio controls style="margin-top: 15px;">
+                <source src="sounds/diap18a.mp3" type="audio/mpeg">
+                Your browser does not support the audio tag. </audio>
+            </div>
+            <div class="subs_audio">
+              <div>Ante la materialización de <span class="negrilla">Eventos Tipo A</span>, los cuales generan pérdidas y afectan el estado de resultados de la Entidad, se debe realizar los siguientes procedimientos para realizar el registro contable:</div>
+            </div>
+          </div>
+          <div class="infografia"> <img src="images/diap18.png" height="200">
+            <map data-restriccion="no">
+              <area id="zona_sensible12" shape="circ" coords="509,197,70">
+              <area id="zona_sensible13" shape="circ" coords="779,197,70">
+            </map>
+          </div>
+        </div>
+      </div>
+    </div>
+    <style>
+.cont_sensdiv {
+    margin-top: 5px;
+}
+</style>
+    <div class="txt_interno c_1_1">
+      <h1>Clases de eventos</h1>
+      <div class="item_c">
+        <video style="height: 300px;" autoplay loop muted>
+          <source src="images/diap13gif.mp4" type="video/mp4">
+          Your browser does not support the video tag. </video>
+      </div>
+      <div class="item_c">
+        <div class="instruccion_interna" style="margin-top: -30px;">Pasa el mouse sobre los textos resaltados</div>
+        <div class="txt_c" style="margin-top: -10px;">
+          <div class="cont_audio">
+            <div class="audio_c">
+              <audio controls style="margin-top: 15px;">
+                <source src="sounds/diap13a_.mp3" type="audio/mpeg">
+                Your browser does not support the audio tag. </audio>
+            </div>
+            <div class="subs_audio">
+              <div> Los eventos que se pueden presentar son:</div>
+            </div>
+          </div>
+          <div class="negrilla_sensible" id="zona_sensible14">Propios </div>
+          <div class="negrilla_sensible" id="zona_sensible15">Reclamaciones </div>
+          <div class="negrilla_sensible" id="zona_sensible16">Informes de Seguridad </div>
+          <div class="negrilla_sensible" id="zona_sensible17">Provisiones </div>
+          <div class="negrilla_sensible" id="zona_sensible18">Incidentes de TI </div>
+        </div>
+      </div>
+    </div>
+    <div class="txt_interno c_1">
+      <h1>Fecha de descubrimiento</h1>
+      <div class="item_c">
+        <div class="instruccion_interna">Pasa el mouse sobre los textos resaltados</div>
+        <div class="cont_audio">
+          <div class="audio_c">
+            <audio controls style="margin-top: 15px;">
+              <source src="sounds/diap14a_.mp3" type="audio/mpeg">
+              Your browser does not support the audio tag. </audio>
+          </div>
+          <div class="subs_audio">
+            <div class="resaltado_especial">La fecha de descubrimiento es el día, mes, año y hora de detección o registro, y conocimiento de la materialidad del evento.
+</div>
+          </div>
+        </div>
+        <div class="txt_c">
+          <div>La fecha de descubrimiento varía dependiendo del tipo de evento: </div>
+          <table style="text-align: center; margin: auto;">
+            <tr>
+              <td><div class="negrilla_sensible" id="zona_sensible19">Propios </div>
+                <div class="negrilla_sensible" id="zona_sensible20">Reclamaciones </div>
+                <div class="negrilla_sensible" id="zona_sensible21">Informes de Seguridad </div></td>
+             
+              <td><div class="negrilla_sensible" id="zona_sensible22">Provisiones </div>
+                <div class="negrilla_sensible" id="zona_sensible23">Incidentes de TI </div></td> 
+                <td><img src="images/diap14a.png" height="200"></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="txt_interno c_1">
+      <h1> Tiempos de Gestión de Eventos </h1>
+      <div class="item_c">
+        <div class="txt_internob c_1">
+          <h1>Inicio</h1>
+          <div class="item_c">
+            <table style="text-align: center; margin: auto;">
+              <tr>
+                <td><img src="images/diap16a.png" height="220"></td>
+                <td style="width: 370px;"><div class="cont_audio">
+                    <div class="audio_c">
+                      <audio controls style="margin-top: 15px;">
+                        <source src="sounds/diap16_.mp3" type="audio/mpeg">
+                        Your browser does not support the audio tag. </audio>
+                    </div>
+                    <div class="subs_audio"><span class="negrilla">Oportunidad en el registro </span>
+                      <div class="resaltado_especial">Para todas las clases de eventos el plazo máximo de registro son 15 días hábiles a partir de la fecha de su descubrimiento. </div>
+                    </div>
+                  </div></td>
+              </tr>
+            </table>
+            <div class='instruccion_interna'>Pulsa los botones para conocer cómo se debe realizar el cierre de eventos en cada caso.<span class='indica_instclicb'></span></div>
+          </div>
+        </div>
+        <div class="txt_internob c_3_6"  style="margin-top: -50px;">
+          <h1>Evento Tipo A</h1>
+          <div class="item_c" ><img src="images/diap20.png" height="120">
+            <div class="instruccion_interna">Pasa el mouse sobre el dato de interés</div>
+            <div id="zona_sensible24" class="negrilla_sensible">
+              <p><i class="fad fa-comment-exclamation"></i></p>
+              <p>Dato de interés</p>
+            </div>
+          </div>
+          <div class="item_c">
+            <div class="cont_audio">
+              <div class="audio_c">
+                <audio controls style="margin-top: 15px;">
+                  <source src="sounds/diap17a_.mp3" type="audio/mpeg">
+                  Your browser does not support the audio tag. </audio>
+              </div>
+              <div class="subs_audio">
+                <div><span class="negrilla">Oportunidad en contabilidad y cierre de los eventos Tipo A</span></div>
+              </div>
+            </div>
+            <table class="tabla_estilo" style="text-align: center; margin: auto; font-size: 12px;">
+              <tr>
+                <th> Clases </th>
+                <th> Plazo máximo para contabilización y cierre </th>
+              </tr>
+              <tr>
+                <th> Propios </th>
+                <td> 30 días hábiles a partir de la fecha de su descubrimiento. </td>
+              </tr>
+              <tr>
+                <th> Reclamaciones </th>
+                <td> 45 días hábiles a partir de la fecha de su descubrimiento. </td>
+              </tr>
+              <tr>
+                <th> Provisiones </th>
+                <td> 30 días hábiles a partir de la fecha de su descubrimiento. </td>
+              </tr>
+              <tr>
+                <th> Informes de Seguridad </th>
+                <td> 45 días hábiles a partir de la fecha de su descubrimiento. </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="txt_internob c_1_1">
+          <h1>Evento Tipo B </h1>
+          <div class="item_c"><img src="images/diap21.png" height="200"></div>
+          <div class="item_c">
+            <div class="txt_c">
+              <div class="cont_audio">
+                <div class="audio_c">
+                  <audio controls style="margin-top: 15px;">
+                    <source src="sounds/diap18_.mp3" type="audio/mpeg">
+                    Your browser does not support the audio tag. </audio>
+                </div>
+                <div class="subs_audio">
+                  <div>Para eventos Tipo B, los dueños de proceso tendrán un <span class="negrilla">plazo máximo de 30 días hábiles</span> a partir de la fecha de descubrimiento para el cierre del evento (numeral 1.1.1.2 ARO31 Identificación y Registro de eventos de Riesgos Operacionales). </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="txt_interno c_1">
+      <h1> Reclasificaciones </h1>
+      <div class="item_c">
+        <div class="txt_internob c_1">
+          <h1>Inicio</h1>
+          <div class="item_c">
+            <div class='instruccion_interna'>Pulsa los botones para conocer los casos contables en los que se solicitan reclasificaciones.<span class='indica_instclicb'></span></div>
+          </div>
+        </div>
+        <div class="txt_internob c_1_1">
+          <h1>Eventos no materializados</h1>
+          <div class="item_c"><img src="images/diap23.png" height="200"></div>
+          <div class="item_c">
+            <div class="txt_c">
+              <div class="cont_audio">
+                <div class="audio_c">
+                  <audio controls style="margin-top: 15px;">
+                    <source src="sounds/diap23.mp3" type="audio/mpeg">
+                    Your browser does not support the audio tag. </audio>
+                </div>
+                <div class="subs_audio">
+                  <div><span class="negrilla">Afectación de las cuentas de riesgo operacional sin que 
+                    corresponda a eventos materializados (reconocimientos comerciales) </span></div>
+                  <div> Casos en los que el Banco 
+                    decide retribuir al cliente 
+                    con el fin de no perderlo, 
+                    ya que no se establecen 
+                    fallas del Banco. </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="txt_internob c_1">
+          <h1>Registro de Recuperaciones </h1>
+          <div class="item_c">
+            <div class="txt_c" style="margin-top: -70px;">
+              <div class="cont_audio">
+                <div class="audio_c">
+                  <audio controls style="margin-top: 15px;">
+                    <source src="sounds/diap24a.mp3" type="audio/mpeg">
+                    Your browser does not support the audio tag. </audio>
+                </div>
+                <div class="subs_audio">
+                  <div><span class="negrilla">Afectación de la cuenta de recuperaciones riesgo operacional sin que se haya afectado la cuenta pérdida de RO</span></div>
+                  <div> Estas reclasificaciones se presentan en los siguientes casos:</div>
+                </div>
+              </div>
+            </div>
+            <div class="infografia"> <img src="images/diap24.png" height="150">
+              <map data-restriccion="no">
+                <area id="zona_sensible25" shape="circ" coords="78,80,68">
+                <area id="zona_sensible26" shape="circ" coords="259,80,68">
+                <area id="zona_sensible27" shape="circ" coords="443,80,68">
+              </map>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="c_principal c_1-1">
+  <h1  data-posabsbtn="700,220">Actividad</h1>
+  <div class="item_c">
+    <div class="txt_c">
+      <table style="text-align: center; margin: auto; width: 800px;">
+        <td><div class="cont_audio">
+              <div class="audio_c">
+                <audio controls style="margin-top: 15px;">
+                  <source src="sounds/diap26.mp3" type="audio/mpeg">
+                  Your browser does not support the audio tag. </audio>
+              </div>
+              <div class="subs_audio">
+                <div>Llegó el momento de controlar a Gerard y detener el riesgo ocasionado por él.
+                  ¡Ayúdanos con tus conocimientos! <br>
+                  <br>
+                  Pulsa el botón “Ir a las preguntas” para resolver algunas actividades.</div>
+              </div>
+            </div></td>
+          <td style="width: 240px;"><img src="images/diap25.png" height="300"></td>
+      </table>
+    </div>
+  </div>
+  <div class="item_c">
+    <div class="boton_siguiente">
+      <div id="txt_btnsig2">IR A LAS PREGUNTAS </div>
+    </div>
+  </div>
+</div>
+<div id="pop0" class="pop">
+  <div class="cont_audio">
+    <div class="audio_c">
+      <audio controls style="margin-top: 15px;">
+        <source src="sounds/diap5b.mp3" type="audio/mpeg">
+        Your browser does not support the audio tag. </audio>
+    </div>
+    <div class="subs_audio"> </div>
+  </div>
+  El Riesgo Operacional incluye el riesgo legal.</div>
+<div id="pop1" class="pop">
+  <div class="cont_audio">
+    <div class="audio_c">
+      <audio controls style="margin-top: 15px;">
+        <source src="sounds/diap8b.mp3" type="audio/mpeg">
+        Your browser does not support the audio tag. </audio>
+    </div>
+    <div class="subs_audio"> </div>
+  </div>
+  Son eventos de riesgo que generan pérdidas reales y afectan el estado de resultados del Banco. </div>
+<div id="pop2" class="pop">
+  <div class="cont_audio">
+    <div class="audio_c">
+      <audio controls style="margin-top: 15px;">
+        <source src="sounds/diap8c.mp3" type="audio/mpeg">
+        Your browser does not support the audio tag. </audio>
+    </div>
+    <div class="subs_audio"> </div>
+  </div>
+  Son Eventos de Riesgo Operativo que no generan pérdidas y, por lo tanto, no afectan el estado de resultados del Banco. </div>
+<div id="pop3" class="pop">
+  <div class="cont_audio">
+    <div class="audio_c">
+      <audio controls style="margin-top: 15px;">
+        <source src="sounds/diap10b.mp3" type="audio/mpeg">
+        Your browser does not support the audio tag. </audio>
+    </div>
+    <div class="subs_audio"> </div>
+  </div>
+  Cuando un ente administrativo o judicial <span class="negrilla">emite un fallo</span> en contra del Banco. En este caso, se debe recurrir a la parte resolutoria para identificar el proceso que debe ser afectado. </div>
+<div id="pop4" class="pop">
+  <div class="cont_audio">
+    <div class="audio_c">
+      <audio controls style="margin-top: 15px;">
+        <source src="sounds/diap10c.mp3" type="audio/mpeg">
+        Your browser does not support the audio tag. </audio>
+    </div>
+    <div class="subs_audio"> </div>
+  </div>
+  Cuando existe un <span class="negrilla">proceso en curso</span> y el Banco decide realizar un <span class="negrilla">acuerdo</span> con el cliente. En este caso, los efectos económicos del acuerdo deben afectar las cuentas contables de riesgo operacional. Para identificar el proceso afectado se debe recurrir al resultado del análisis realizado por el abogado apoderado del Banco, cuyo concepto fue aprobado por la Dirección de Apoyo Judicial del Banco. </div>
+<div id="pop5" class="pop">
+  <div class="cont_audio">
+    <div class="audio_c">
+      <audio controls style="margin-top: 15px;">
+        <source src="sounds/diap10d.mp3" type="audio/mpeg">
+        Your browser does not support the audio tag. </audio>
+    </div>
+    <div class="subs_audio"> </div>
+  </div>
+  Cuando el Banco, a través de las áreas especializadas en gestionar las quejas y reclamaciones interpuestas por los clientes, <span class="negrilla">acoge favorablemente una queja o reclamación</span>, y en la investigación se determina que existió una falla, inadecuación, error, fraude o mal funcionamiento de alguno de los factores de riesgo a cargo del Banco. En este caso, se debe afectar el proceso en el cual el riesgo se evidenció, y de existir efectos económicos se deben afectar las cuentas contables de riesgo operacional.</div>
+<div id="pop6" class="pop">
+  <div class="cont_audio">
+    <div class="audio_c">
+      <audio controls style="margin-top: 15px;">
+        <source src="sounds/diap10e.mp3" type="audio/mpeg">
+        Your browser does not support the audio tag. </audio>
+    </div>
+    <div class="subs_audio"> </div>
+  </div>
+  Los casos en los que no existe una decisión judicial o de un ente administrativo, no hay un proceso en curso y el Banco decide realizar un acuerdo con el cliente <span class="negrilla">NO </span>se consideran Eventos de Riesgo Operacional. <span class="negrilla">Los efectos económicos de estos acuerdos no deben afectar cuentas contables de riesgo operacional, sino cuentas definidas para reconocimientos comerciales. </span> </div>
+<div id="pop7" class="pop">
+  <div class="cont_audio">
+    <div class="audio_c">
+      <audio controls style="margin-top: 15px;">
+        <source src="sounds/diap13a.mp3" type="audio/mpeg">
+        Your browser does not support the audio tag. </audio>
+    </div>
+    <div class="subs_audio"> </div>
+  </div>
+  <span class="negrilla">¿Qué es lo primero que debo hacer cuando se materializa un riesgo? </span><br>
+  <br>
+  Identificar el riesgo que sucedió en la matriz de riesgo y control del subproceso afectado, es decir, el riesgo que corresponde a la situación que se materializó. </div>
+<div id="pop8" class="pop">
+  <div class="cont_audio">
+    <div class="audio_c">
+      <audio controls style="margin-top: 15px;">
+        <source src="sounds/diap13b.mp3" type="audio/mpeg">
+        Your browser does not support the audio tag. </audio>
+    </div>
+    <div class="subs_audio"> </div>
+  </div>
+  <span class="negrilla">¿Quién debe registrar los Eventos de Riesgo Operacional materializados? </span><br>
+  <br>
+  Corresponde a algún empleado, bajo supervisión del dueño de proceso afectado en el cual ocurrió el evento de riesgo, con el rol de informador de eventos. </div>
+<div id="pop9" class="pop">
+  <div class="cont_audio">
+    <div class="audio_c">
+      <audio controls style="margin-top: 15px;">
+        <source src="sounds/diap13c.mp3" type="audio/mpeg">
+        Your browser does not support the audio tag. </audio>
+    </div>
+    <div class="subs_audio"> </div>
+  </div>
+  <span class="negrilla">¿Cómo se registran los Eventos de Riesgo Operacional materializados?</span><br>
+  <br>
+  En la página de enlace, en la opción aplicativos, ingresar al aplicativo de gestión de eventos de riesgo operacional (Riskmentsuite) con su usuario y clave personal, y registrar los datos completos del evento materializado, de acuerdo con lo dispuesto en el IN-ARO-0002 “Instructivo Registro De Eventos De Riesgos Operacionales”. </div>
+<div id="pop10" class="pop">
+  <div class="cont_audio">
+    <div class="audio_c">
+      <audio controls style="margin-top: 15px;">
+        <source src="sounds/diap13d.mp3" type="audio/mpeg">
+        Your browser does not support the audio tag. </audio>
+    </div>
+    <div class="subs_audio"> </div>
+  </div>
+  <span class="negrilla">¿Cuándo se deben reportar los Eventos de Riesgo Operacional materializados? </span><br>
+  <br>
+  Los eventos se reportan el mismo día en que se identifican o a más tardar 15 días después de su descubrimiento. </div>
+<div id="pop11" class="pop">
+  <div class="cont_audio">
+    <div class="audio_c">
+      <audio controls style="margin-top: 15px;">
+        <source src="sounds/diap13e.mp3" type="audio/mpeg">
+        Your browser does not support the audio tag. </audio>
+    </div>
+    <div class="subs_audio"> </div>
+  </div>
+  <span class="negrilla">¿Cuándo se deben afectar las cuentas de riesgo operacional? </span><br>
+  <br>
+  Se debe haber registrado previamente la pérdida en el aplicativo de gestión de riesgos operacionales y haber registrado previamente la contabilidad de la pérdida asociada con el evento. Se debe proceder de acuerdo a lo indicado en la instrucción contable No. 24 de 2020 “Consulta sobre reconocimiento contable de algunos eventos SARO”. </div>
+<div id="pop12" class="pop">
+  <div class="cont_audio">
+    <div class="audio_c">
+      <audio controls style="margin-top: 15px;">
+        <source src="sounds/diap18b.mp3" type="audio/mpeg">
+        Your browser does not support the audio tag. </audio>
+    </div>
+    <div class="subs_audio"> </div>
+  </div>
+  Realizar el registro contable.<br><br>
+  En todos los casos se debe determinar el número del evento de riesgo registrado previamente en el aplicativo de gestión de Riesgo Operacional y comunicarlo a quien realizará el registro contable para que lo mencione en el documento contable. </div>
+<div id="pop13" class="pop">
+  <div class="cont_audio">
+    <div class="audio_c">
+      <audio controls style="margin-top: 15px;">
+        <source src="sounds/diap18c.mp3" type="audio/mpeg">
+        Your browser does not support the audio tag. </audio>
+    </div>
+    <div class="subs_audio"> </div>
+  </div>
+  Solicitar aprobación para la afectación del gasto y aplicar lo establecido en el Boletín de Presidencia P900-109-002 _20_Junio_2019, contabilizando en SAP de acuerdo con el Proceso de nivel 1 P-151-00109 "Contabilización de cuentas por pagar sin factura” del Manual Cuadre Contable Centralizado de Oficinas. </div>
+<div id="pop14" class="pop">
+  <div class="cont_audio">
+    <div class="audio_c">
+      <audio controls style="margin-top: 15px;">
+        <source src="sounds/diap13b_.mp3" type="audio/mpeg">
+        Your browser does not support the audio tag. </audio>
+    </div>
+    <div class="subs_audio"> </div>
+  </div>
+  Registro de eventos propios generados por el incumplimiento del objetivo de su proceso y que se pueden materializar en el día a día. Estos riesgos se identifican consultando la matriz del subproceso impactado. </div>
+<div id="pop15" class="pop">
+  <div class="cont_audio">
+    <div class="audio_c">
+      <audio controls style="margin-top: 15px;">
+        <source src="sounds/diap13c_.mp3" type="audio/mpeg">
+        Your browser does not support the audio tag. </audio>
+    </div>
+    <div class="subs_audio"> </div>
+  </div>
+  Eventos que se originan de un reclamo y/o queja de un cliente registrados en aplicativo que soporta las PQRS y que sean diferentes a los casos que requieren investigación. </div>
+<div id="pop16" class="pop">
+  <div class="cont_audio">
+    <div class="audio_c">
+      <audio controls style="margin-top: 15px;">
+        <source src="sounds/diap13d_.mp3" type="audio/mpeg">
+        Your browser does not support the audio tag. </audio>
+    </div>
+    <div class="subs_audio"> </div>
+  </div>
+  Eventos registrados por la Gerencia de Seguridad Bancaria los cuales son identificados a través de una investigación originada por la reclamación de un cliente, con la cual elaboran un documento con las conclusiones de esta, determinando si es un fraude o no, y asociándolos al riesgo impactado de los diferentes procesos del Banco.
+</div>
+<div id="pop17" class="pop">
+  <div class="cont_audio">
+    <div class="audio_c">
+      <audio controls style="margin-top: 15px;">
+        <source src="sounds/diap13e_.mp3" type="audio/mpeg">
+        Your browser does not support the audio tag. </audio>
+    </div>
+    <div class="subs_audio"> </div>
+  </div>
+  Eventos registrados por la Dirección de Apoyo judicial y Asuntos Laborales a partir de la notificación al Banco de una demanda. En el caso de Apoyo Judicial, asociándolos al riesgo impactado de los diferentes procesos del Banco. </div>
+<div id="pop18" class="pop">
+  <div class="cont_audio">
+    <div class="audio_c">
+      <audio controls style="margin-top: 15px;">
+        <source src="sounds/diap13f_.mp3" type="audio/mpeg">
+        Your browser does not support the audio tag. </audio>
+    </div>
+    <div class="subs_audio"> </div>
+  </div>
+  Eventos registrados en aplicativo propio TI a causa de cualquier interrupción en los servicios de TI de la organización que afecta cualquier recurso y que puede afectar desde un solo usuario hasta toda la empresa. </div>
+<div id="pop19" class="pop">
+  <div class="cont_audio">
+    <div class="audio_c">
+      <audio controls style="margin-top: 15px;">
+        <source src="sounds/diap14b_.mp3" type="audio/mpeg">
+        Your browser does not support the audio tag. </audio>
+    </div>
+    <div class="subs_audio"> </div>
+  </div>
+  Se debe registrar día, mes, año, hora y minutos en que se descubrió la materialidad del evento. </div>
+<div id="pop20" class="pop">
+  <div class="cont_audio">
+    <div class="audio_c">
+      <audio controls style="margin-top: 15px;">
+        <source src="sounds/diap14c_.mp3" type="audio/mpeg">
+        Your browser does not support the audio tag. </audio>
+    </div>
+    <div class="subs_audio"> </div>
+  </div>
+  Se debe registrar día, mes, año, hora y minutos en que se registró la reclamación en aplicativo PQR. </div>
+<div id="pop21" class="pop">
+  <div class="cont_audio">
+    <div class="audio_c">
+      <audio controls style="margin-top: 15px;">
+        <source src="sounds/diap14d_.mp3" type="audio/mpeg">
+        Your browser does not support the audio tag. </audio>
+    </div>
+    <div class="subs_audio"> </div>
+  </div>
+  Se debe registrar día, mes, año, hora y minutos en que se determina la materialidad del fraude, registro de la PQR o notificación del suceso. </div>
+<div id="pop22" class="pop">
+  <div class="cont_audio">
+    <div class="audio_c">
+      <audio controls style="margin-top: 15px;">
+        <source src="sounds/diap14e_.mp3" type="audio/mpeg">
+        Your browser does not support the audio tag. </audio>
+    </div>
+    <div class="subs_audio"> </div>
+  </div>
+  Se debe registrar día, mes, año, hora y minutos en que se notifica la Demanda al Banco. </div>
+<div id="pop23" class="pop">
+  <div class="cont_audio">
+    <div class="audio_c">
+      <audio controls style="margin-top: 15px;">
+        <source src="sounds/diap14f_.mp3" type="audio/mpeg">
+        Your browser does not support the audio tag. </audio>
+    </div>
+    <div class="subs_audio"> </div>
+  </div>
+  Se debe registrar día, mes, año, hora y minutos en que se registra el incidente en aplicativo de TI Service Manager. </div>
+<div id="pop24" class="pop">
+  <div class="cont_audio">
+    <div class="audio_c">
+      <audio controls style="margin-top: 15px;">
+        <source src="sounds/diap17b_.mp3" type="audio/mpeg">
+        Your browser does not support the audio tag. </audio>
+    </div>
+    <div class="subs_audio"> </div>
+  </div>
+  La fecha de contabilización es la fecha de la afectación de las cuentas contables de riesgo operativo en SAP (incluida por la Dirección de Riesgo Operativo en los eventos). </div>
+<div id="pop25" class="pop">
+  <div class="cont_audio">
+    <div class="audio_c">
+      <audio controls style="margin-top: 15px;">
+        <source src="sounds/diap24b.mp3" type="audio/mpeg">
+        Your browser does not support the audio tag. </audio>
+    </div>
+    <div class="subs_audio"> </div>
+  </div>
+  Cuando se presentan reclamaciones por gestión errada de call center por cobros que no debieron amortizar o solicitudes no atendidas a tiempo, el Banco debe devolver estos cobros mediante reversión contable de las partidas, sin embargo, se realiza proceso de cobro al tercero. </div>
+<div id="pop26" class="pop">
+  <div class="cont_audio">
+    <div class="audio_c">
+      <audio controls style="margin-top: 15px;">
+        <source src="sounds/diap24c.mp3" type="audio/mpeg">
+        Your browser does not support the audio tag. </audio>
+    </div>
+    <div class="subs_audio"> </div>
+  </div>
+  Cuando se presentan eventos por hurto de equipo de cómputo que contablemente se encuentra depreciado y no se realiza afectación de la pérdida, pero el Banco remite solicitud a la aseguradora y se recibe el valor de equipo de cómputo por seguros. </div>
+<div id="pop27" class="pop">
+  <div class="cont_audio">
+    <div class="audio_c">
+      <audio controls style="margin-top: 15px;">
+        <source src="sounds/diap24d.mp3" type="audio/mpeg">
+        Your browser does not support the audio tag. </audio>
+    </div>
+    <div class="subs_audio"> </div>
+  </div>
+  Cuando se presenta una pérdida por evento de daño activo físico, se contabiliza el valor de la pérdida, se gestiona la recuperación ante seguro y como respuesta se registra un valor superior a la pérdida. En este caso se debe afectar el valor de recuperación solo por el valor de la pérdida y registrar la diferencia en la cuenta de otras recuperaciones. </div>
+</body>
+</html>
