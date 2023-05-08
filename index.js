@@ -8,7 +8,7 @@ lib.properties = {
 	height: 630,
 	fps: 24,
 	color: "#FFFFFF",
-	manifest: [{src:"sounds/locucionini.mp3"},{src:"sounds/correct.mp3"},{src:"sounds/incorrect.mp3"},{src:"sounds/star.mp3"},{src:"sounds/boton.mp3"},{src:"sounds/clic.mp3"},{src:"sounds/over.mp3"},{src:"sounds/avance.mp3"},{src:"sounds/volver.mp3"},{src:"sounds/musica_fondo.mp3"}]
+	manifest: [{src:"sounds/locucionini.mp3"},{src:"sounds/locucionfin.mp3"},,{src:"sounds/correct.mp3"},{src:"sounds/incorrect.mp3"},{src:"sounds/star.mp3"},{src:"sounds/boton.mp3"},{src:"sounds/clic.mp3"},{src:"sounds/over.mp3"},{src:"sounds/avance.mp3"},{src:"sounds/volver.mp3"},{src:"sounds/musica_fondo.mp3"}]
 };
 
 
